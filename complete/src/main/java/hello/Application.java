@@ -3,6 +3,9 @@ package hello;
 
 import javax.jms.ConnectionFactory;
 
+import com.amazon.sqs.javamessaging.SQSConnectionFactory;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.internal.StaticCredentialsProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
@@ -21,11 +24,21 @@ import org.springframework.jms.support.converter.MessageType;
 public class Application {
 
 	@Bean
+	public ConnectionFactory jmsConnectionFactory() {
+		return new SQSConnectionFactory.Builder()
+				.withRegionName("us-east-1")
+				.withAWSCredentialsProvider(new StaticCredentialsProvider(
+						new BasicAWSCredentials("xxxxxxxxxxxxxxxxxxxx", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")))
+				.build();
+	}
+
+	@Bean
 	public JmsListenerContainerFactory<?> myFactory(ConnectionFactory connectionFactory,
 													DefaultJmsListenerContainerFactoryConfigurer configurer) {
 		DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
 		// This provides all boot's default to this factory, including the message converter
 		configurer.configure(factory, connectionFactory);
+		factory.setSessionTransacted(false);
 		// You could still override some of Boot's default if necessary.
 		return factory;
 	}
