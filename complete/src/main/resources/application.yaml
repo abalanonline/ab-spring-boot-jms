@@ -1,0 +1,7 @@
+spring.activemq:
+  #broker-url: ssl://x-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx-x.mq.us-east-1.amazonaws.com:61617
+  broker-url: tcp://localhost:61616
+  user: admin
+  password: admin
+logging.level:
+  org.apache.activemq.transport: DEBUG
