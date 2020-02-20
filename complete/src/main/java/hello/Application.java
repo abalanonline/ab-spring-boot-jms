@@ -3,6 +3,7 @@ package hello;
 
 import javax.jms.ConnectionFactory;
 
+import com.rabbitmq.jms.admin.RMQConnectionFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
@@ -19,6 +20,11 @@ import org.springframework.jms.support.converter.MessageType;
 @SpringBootApplication
 @EnableJms
 public class Application {
+
+	@Bean
+	public ConnectionFactory jmsConnectionFactory() {
+		return new RMQConnectionFactory();
+	}
 
 	@Bean
 	public JmsListenerContainerFactory<?> myFactory(ConnectionFactory connectionFactory,
