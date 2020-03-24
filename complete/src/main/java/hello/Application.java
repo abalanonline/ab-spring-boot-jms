@@ -1,6 +1,8 @@
 
 package hello;
 
+import javax.jms.ConnectionFactory;
+
 import com.amazon.sqs.javamessaging.ProviderConfiguration;
 import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import org.springframework.boot.SpringApplication;
@@ -15,8 +17,6 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
-
-import javax.jms.ConnectionFactory;
 
 @SpringBootApplication
 @EnableJms
