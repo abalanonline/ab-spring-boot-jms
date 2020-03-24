@@ -3,6 +3,7 @@ package hello;
 
 import javax.jms.ConnectionFactory;
 
+import com.amazon.sqs.javamessaging.ProviderConfiguration;
 import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.internal.StaticCredentialsProvider;
@@ -25,11 +26,7 @@ public class Application {
 
 	@Bean
 	public ConnectionFactory jmsConnectionFactory() {
-		return new SQSConnectionFactory.Builder()
-				.withRegionName("us-east-1")
-				.withAWSCredentialsProvider(new StaticCredentialsProvider(
-						new BasicAWSCredentials("xxxxxxxxxxxxxxxxxxxx", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")))
-				.build();
+		return new SQSConnectionFactory(new ProviderConfiguration());
 	}
 
 	@Bean
